@@ -12,6 +12,17 @@ app.get("/", (req, res) => {
     res.send("Hello There")
   });
 
+app.get("/employees", (req, res) => {
+    dao.findAllEmployees(
+        (employees) => {
+            if(!employees) {
+                res.status(404).end();
+            } else {
+                res.send(employees);
+            }
+        })
+}) 
+
 app.listen(port, () => {
   console.log(`Server listening on port:${port}`);
 });
