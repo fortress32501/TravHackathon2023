@@ -13,3 +13,8 @@ async function startup() {
   collection = db.collection(collectionName);
 }
 startup();
+
+module.exports.findAllEmployees = function (callback) {
+    let dataPromise = collection.find({}).toArray();
+    dataPromise.then((employees) => callback(employees));
+};
