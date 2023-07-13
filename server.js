@@ -36,7 +36,6 @@ app.get("/api/employees/:id", (req, res) => {
 }) 
 
 app.get("/api/managers/:id", (req, res) => {
-    console.log(req.params.id)
     dao.findEmployees(req.params.id,
         (employees) => {
             if(!employees) {
