@@ -1,0 +1,33 @@
+ import React from 'react';
+  import { Link, Switch, Route } from 'react-router';
+  import Nav from './nav';
+  import Page1 from './page1';
+  import Page2 from './page2';
+  import Page3 from './page3';
+
+  const NavRoute = ({exact, path, component: Component}) => (
+    <Route exact={exact} path={path} render={(props) => (
+      <div>
+        <Header/>
+        <Component {...props}/>
+      </div>
+    )}/>
+  )
+
+  export default class App extends React.Component {
+    render() {    
+      return (
+        <div className="App">
+          <Router>
+              <Switch>
+                <NavRoute exactly component={Landing} pattern="/" />
+                <Route exactly component={Login} pattern="/login" />
+                <NavRoute exactly component={Page1} pattern="/path1" />
+                <NavRoute exactly component={Page2} pattern="/path2" />
+                <NavRoute component={Page404} />
+              </Switch>
+          </Router>
+        </div>
+      );
+    }
+  }

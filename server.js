@@ -23,6 +23,21 @@ app.get("/employees", (req, res) => {
         })
 }) 
 
+app.post("/api/login", (req, res) => {
+    const {first_name, last_name, password} = req.body;
+    console.log({first_name, last_name, password})
+
+    dao.findEmployeeForLogin( first_name, last_name, password,
+        (employee) => {
+            if(!employee) {
+                res.send({});
+            } else {
+                console.log(employee);
+                res.send(employee);
+            }
+        })
+})
+
 app.listen(port, () => {
   console.log(`Server listening on port:${port}`);
 });
