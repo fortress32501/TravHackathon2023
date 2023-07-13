@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router';
+import Employee from './Employee';
 
 const Home = (props) => {
   const [employees, setEmployees] = useState([]);
   const [first_name, setFirstName] = useState("")
   const [last_name, setLastName] = useState("")
 
+  const navigate = useNavigate()
+
   const getAllEmployees = ()  => {
-    fetch(`http://localhost:4000/employees`)
+    fetch(`http://localhost:4000/api/employees`)
       .then((res) => { 
         if(res.ok) {
           return res.json() 
@@ -23,6 +27,10 @@ const Home = (props) => {
   useEffect(()=>{
     getAllEmployees()
   }, []);
+
+  const handleClickPerson = (employee) => {
+    navigate(`/employees/${employee.employee_id}`, { replace: true });
+  }
 
   return (
     <>
@@ -49,7 +57,7 @@ const Home = (props) => {
         employee.first_name.toLowerCase().includes(first_name.toLowerCase()) 
         && employee.last_name.toLowerCase().includes(last_name.toLowerCase())
       ).map(
-        filteredEmployee => <div>{filteredEmployee.first_name} {filteredEmployee.last_name}</div>
+        fil_emp => {return <Employee first_name={fil_emp.first_name} last_name={fil_emp.last_name} key={fil_emp.employee_id} id={fil_emp.employee_id} />}
       )}
     </div>
     </>
