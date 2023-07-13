@@ -1,5 +1,6 @@
 const cors = require('cors');
 const express = require("express");
+const { spawn } = require('child_process');
 var dao = require("./mongo-dao");
 
 const app = express();
@@ -38,14 +39,13 @@ app.post("/api/login", (req, res) => {
 
 app.post("/predict", (req, res) => {
     const {location, job_role, years_of_experience} = req.body;
-
+    let data_vals = [location, job_role, years_of_experience]
+    console.log(data_vals)
     // Spawn a child process to execute the predict.py script
     const pythonScript = spawn('python', ['predict.py']);
 
     // Send the data to the predict.py script via stdin
-    pythonScript.stdin.write(JSON.stringify(location));
-    pythonScript.stdin.write(JSON.stringify(job_role));
-    pythonScript.stdin.write(JSON.stringify(years_of_experience));
+    pythonScript.stdin.write(JSON.stringify(data_vals));
     pythonScript.stdin.end();
 
     let predictionData = '';
@@ -61,12 +61,7 @@ app.post("/predict", (req, res) => {
         if (code === 0) {
             // Parse the predicted data
             const predictions = JSON.parse(predictionData);
-            
-            if (predictions[0]==0) {
-                res.send(JSON.stringify('Unlikely'))
-            } else {
-                res.send(JSON.stringify('Likely'))
-            }
+            res.send(JSON.stringify(predictions[0][0]))
             // Return the predictions as the response
             //res.send(predictionData);
         } else {

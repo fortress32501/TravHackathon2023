@@ -6,8 +6,11 @@ const SalaryPrediction = () => {
   const [years_of_experience, setYearsOfExp] = useState(0);
   const [result, setResult] = useState("");
 
+  let myformat = new Intl.NumberFormat('en-US', { 
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2 
+  });
  
-
   const sendData = () => {
     setResult("")
     const requestOptions = {
@@ -25,17 +28,17 @@ const SalaryPrediction = () => {
     <label>
       Location:
     </label>
-    <input type="text" value={location} onChange={e => setLocation(e.target.value)}/>
+    <input type="text" value={location} onChange={e => setLocation(e.target.value)}/><br/>
     <label>
       Job Role:
     </label>
-    <input type="text" value={job_role} onChange={e => setJobRole(e.target.value)}/>
+    <input type="text" value={job_role} onChange={e => setJobRole(e.target.value)}/><br/>
     <label>  
       Years of Experience:
     </label>
-    <input type="text" value={years_of_experience} onChange={e => setYearsOfExp(e.target.value)}/>
+    <input type="text" value={years_of_experience} onChange={e => setYearsOfExp(e.target.value)}/><br/>
     <button onClick={e => sendData()}>Submit</button>     
-    <p>Result: {result}</p>
+    <p>Result: ${myformat.format(result)}</p>
     </>
   );
 }
