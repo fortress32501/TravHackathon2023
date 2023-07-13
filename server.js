@@ -13,8 +13,30 @@ app.get("/", (req, res) => {
     res.send("Hello There")
   });
 
-app.get("/employees", (req, res) => {
+app.get("/api/employees", (req, res) => {
     dao.findAllEmployees(
+        (employees) => {
+            if(!employees) {
+                res.status(404).end();
+            } else {
+                res.send(employees);
+            }
+        })
+}) 
+
+app.get("/api/employees/:id", (req, res) => {
+    dao.findEmployee(req.params.id,
+        (employee) => {
+            if(!employee) {
+                res.status(404).end();
+            } else {
+                res.send(employee);
+            }
+        })
+}) 
+
+app.get("/api/managers/:id", (req, res) => {
+    dao.findEmployees(req.params.id,
         (employees) => {
             if(!employees) {
                 res.status(404).end();
