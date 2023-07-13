@@ -18,3 +18,8 @@ module.exports.findAllEmployees = function (callback) {
     let dataPromise = collection.find({}).toArray();
     dataPromise.then((employees) => callback(employees));
 };
+
+module.exports.findEmployeeForLogin = function (first_name, last_name, password, callback) {
+    let dataPromise = collection.findOne({'first_name': first_name, 'last_name': last_name, 'password': password});
+    dataPromise.then((employee) => callback(employee));
+};
