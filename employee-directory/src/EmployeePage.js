@@ -5,6 +5,7 @@ import Employee from './Employee';
 const EmployeePage = () => {
   const [employee, setEmployee] = useState({})
   const [manager, setManager] = useState({})
+  const [underlings, setUnderlings] = useState([])
   let params = useParams();
 
   const getEmployee = ()  => {
@@ -25,7 +26,7 @@ const EmployeePage = () => {
   useEffect(() => {
     if (employee.manager) {
       if (employee.manager != "NA") {
-        console.log("check")
+        setUnderlings([])
         fetch(`http://localhost:4000/api/employees/${employee.manager}`)
         .then((res) => { 
           if(res.ok) {
@@ -37,10 +38,21 @@ const EmployeePage = () => {
           }   
         })
         .then(result => setManager(result))
-        .catch(err => console.log(err));
+        .catch(err => console.log(err))
       } else {
-        console.log("check2")
         setManager({})
+        fetch(`http://localhost:4000/api/managers/${employee.employee_id}`)
+        .then((res) => { 
+          if(res.ok) {
+            return res.json() 
+          } else if(res.status === 404) {
+            return Promise.reject('error 404')
+          } else {
+            return Promise.reject('some other error: ' + res.status)
+          }   
+        })
+        .then(result => setUnderlings(result))
+        .catch(err => console.log(err))
       }
     } 
   }, [employee]);
@@ -57,6 +69,7 @@ const EmployeePage = () => {
     <div>Location: {employee.location}</div>
     <div>Role: {employee.job_role}</div>
     <div> Manager: {employee.manager!="NA" ? <Employee first_name={manager.first_name} last_name={manager.last_name} key={manager.employee_id} id={manager.employee_id} /> : <div>None</div>}</div>
+    <div> Employees: {employee.job_role!="manager" ? <div>None</div> : underlings.map(underling => {return <Employee first_name={underling.first_name} last_name={underling.last_name} key={underling.employee_id} id={underling.employee_id} />})}</div>
     </>
   )
 }

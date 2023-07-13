@@ -19,6 +19,11 @@ module.exports.findAllEmployees = function (callback) {
     dataPromise.then((employees) => callback(employees));
 };
 
+module.exports.findEmployees = function (id, callback) {
+  let dataPromise = collection.find({'manager': +id}).toArray();
+  dataPromise.then((employees) => callback(employees));
+};
+
 module.exports.findEmployee = function (id, callback) {
   let dataPromise = collection.findOne({'employee_id': +id});
   dataPromise.then((employee) => callback(employee));

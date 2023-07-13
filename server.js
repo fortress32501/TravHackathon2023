@@ -25,14 +25,24 @@ app.get("/api/employees", (req, res) => {
 }) 
 
 app.get("/api/employees/:id", (req, res) => {
-    console.log(req.params.id)
     dao.findEmployee(req.params.id,
         (employee) => {
             if(!employee) {
                 res.status(404).end();
             } else {
-                console.log(employee)
                 res.send(employee);
+            }
+        })
+}) 
+
+app.get("/api/managers/:id", (req, res) => {
+    console.log(req.params.id)
+    dao.findEmployees(req.params.id,
+        (employees) => {
+            if(!employees) {
+                res.status(404).end();
+            } else {
+                res.send(employees);
             }
         })
 }) 
