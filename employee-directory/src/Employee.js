@@ -9,7 +9,15 @@ const Employee = (props) => {
     }
 
   return (
-    <div onClick={(e) => handleClick(props.id)}>{props.first_name} {props.last_name}</div>
+    
+    <div className="card" style={{'width': '18rem', 'margin': '10px'}}>
+        <div className="card-body">
+            <h5 className="card-title">{props.first_name} {props.last_name}</h5>
+            <p className="card-text">{props.location}</p>
+            <div className="btn btn-primary" onClick={(e) => handleClick(props.id)}>View Employee</div>
+        </div>
+    </div>
+    
   )
 }
 

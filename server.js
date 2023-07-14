@@ -48,11 +48,10 @@ app.get("/api/managers/:id", (req, res) => {
 
 app.post("/api/login", (req, res) => {
     const {first_name, last_name, password} = req.body;
-
     dao.findEmployeeForLogin( first_name, last_name, password,
         (employee) => {
             if(!employee) {
-                res.send({});
+                res.status(404).end();
             } else {
                 res.send(employee);
             }

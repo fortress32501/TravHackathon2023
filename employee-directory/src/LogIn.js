@@ -44,7 +44,7 @@ const LogIn = (props) => {
       <form onSubmit={e=>handleSubmit(e)} className="row g-3">    
           <div className="col-md-3"></div>  
           <div className="col-md-3">
-            <label for="first_name" className="form-label">First Name</label>
+            <label htmlFor="first_name" className="form-label">First Name</label>
             <input
               type="text"
               placeholder="Enter first name"
@@ -55,7 +55,7 @@ const LogIn = (props) => {
             />
           </div>
           <div className="col-md-3">
-            <label for="last_name" className="form-label">Last Name</label>
+            <label htmlFor="last_name" className="form-label">Last Name</label>
             <input
               type="text"
               placeholder="Enter last name"
@@ -68,7 +68,7 @@ const LogIn = (props) => {
           <div className="col-md-3"></div>
           <div className="col-md-3"></div>
           <div className="col-md-6">
-            <label for="password" className="form-label">Password</label>
+            <label htmlFor="password" className="form-label">Password</label>
             <input
               type="password"
               placeholder="Enter password"
