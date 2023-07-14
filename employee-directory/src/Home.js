@@ -10,6 +10,8 @@ const Home = (props) => {
   const [job, setJob] = useState("")
   const [salaryComp, setSalaryComp] = useState("")
   const [salary, setSalary] = useState(0)
+  const [yearsComp, setYearsComp] = useState("")
+  const [years, setYears] = useState(0)
 
   const navigate = useNavigate()
 
@@ -81,6 +83,20 @@ const Home = (props) => {
           <option value="software_engineer">Software Engineer</option>
       </select>
     </div>
+    <div>
+      <select name="yearsComp" id="yearsComp" value = {yearsComp} onChange={(e)=>setYearsComp(e.target.value)}> 
+            <option value="">-</option> 
+            <option value="eq">=</option>
+            <option value="gt">&gt;</option> 
+            <option value="lt">&lt;</option> 
+        </select>
+        <input
+          type="text"
+          placeholder="Enter years"
+          value = {years}
+          onChange={(e)=>setYears(e.target.value)}
+        />
+    </div>
     {props.user.job_role==="human_resources" ? <div>
       <select name="salaryComp" id="salaryComp" value = {salaryComp} onChange={(e)=>setSalaryComp(e.target.value)}> 
           <option value="">-</option> 
@@ -101,6 +117,18 @@ const Home = (props) => {
         && employee.last_name.toLowerCase().includes(last_name.toLowerCase())
         && employee.location.toLowerCase().includes(location.toLowerCase())
         && employee.job_role.toLowerCase().includes(job.toLowerCase())
+      ).filter(
+        employee => {
+          if (yearsComp===""){
+            return true
+          } else if (yearsComp==="gt"){
+            return employee.years_of_experience > years
+          } else if (yearsComp==="lt"){
+            return employee.years_of_experience < years
+          } else {
+            return +employee.years_of_experience === +years
+          }
+        }
       ).filter(
         employee => {
           if (salaryComp===""){

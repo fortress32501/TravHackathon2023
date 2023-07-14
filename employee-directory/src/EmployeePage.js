@@ -83,6 +83,7 @@ const EmployeePage = (props) => {
     <div>Phone: {employee.phone}</div>
     <div>Location: {employee.location}</div>
     <div>Role: {employee.job_role}</div>
+    <div>Years of Experience: {employee.years_of_experience}</div>
     {canViewSalary ? <div>Salary: {employee.salary}</div> : <></>}
     <div> Manager: {employee.manager!="NA" ? <Employee first_name={manager.first_name} last_name={manager.last_name} key={manager.employee_id} id={manager.employee_id} /> : <div>None</div>}</div>
     <div> Employees: {employee.job_role!="manager" ? <div>None</div> : underlings.map(underling => {return <Employee first_name={underling.first_name} last_name={underling.last_name} key={underling.employee_id} id={underling.employee_id} />})}</div>
