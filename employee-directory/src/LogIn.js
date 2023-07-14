@@ -40,42 +40,50 @@ const LogIn = (props) => {
 
     return (
     <div>
-      <form onSubmit={e=>handleSubmit(e)}>
-        <div>
-          <h3>Sign In</h3>
-          <div>
-            <label>First Name</label>
+      <h3>Sign In</h3>
+      <form onSubmit={e=>handleSubmit(e)} className="row g-3">    
+          <div className="col-md-3"></div>  
+          <div className="col-md-3">
+            <label for="first_name" className="form-label">First Name</label>
             <input
               type="text"
               placeholder="Enter first name"
+              id="first_name"
+              className="form-control"
               value = {first_name}
               onChange={(e)=>setFirstName(e.target.value)}
             />
           </div>
-          <div>
-            <label>Last Name</label>
+          <div className="col-md-3">
+            <label for="last_name" className="form-label">Last Name</label>
             <input
               type="text"
               placeholder="Enter last name"
+              id="last_name"
+              className="form-control"
               value = {last_name}
               onChange={(e)=>setLastName(e.target.value)}
             />
           </div>
-          <div>
-            <label>Password</label>
+          <div className="col-md-3"></div>
+          <div className="col-md-3"></div>
+          <div className="col-md-6">
+            <label for="password" className="form-label">Password</label>
             <input
               type="password"
               placeholder="Enter password"
+              id="password"
+              className="form-control"
               value = {password}
               onChange={e=>setPassword(e.target.value)}
             />
           </div>
+          <div className="col-md-3"></div>
           <div>
             <button type="submit" >
               Submit
             </button>
           </div>
-        </div>
       </form>
     </div>
   )

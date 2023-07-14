@@ -30,11 +30,15 @@ function App() {
 
   return (
     <div className="App">
-      <nav>
-          <div>
-            <Link to="/">Search</Link>
-            <Link to="/SalaryPrediction">Salary Predictor</Link>
-            <button onClick={e => logOut()}>LogOut</button>
+      <nav className="navbar navbar-expand bg-dark border-bottom border-bottom-dark"  data-bs-theme="dark">
+          <div className="container-fluid">
+            <ul className="navbar-nav">
+            <Link to="/" className="nav-item nav-link active">Search</Link>
+            <Link to="/SalaryPrediction" className="nav-item nav-link">Salary Predictor</Link>
+            </ul>
+            <ul className="navbar-nav">
+            <button className="nav-item nav-link" onClick={e => logOut()}>Log Out</button>
+            </ul>
           </div>
       </nav>
       
