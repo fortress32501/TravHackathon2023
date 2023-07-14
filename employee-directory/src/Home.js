@@ -40,7 +40,7 @@ const Home = (props) => {
 
   return (
     <>
-    <div>Search</div>
+    <h3>Search</h3>
     <div className='row justify-content-center'>
     <form className="row col-md-8 g-2 justify-content-center">
       <div className="col-md-3">

@@ -6,6 +6,7 @@ const LogIn = (props) => {
     const [first_name, setFirstName] = useState("")
     const [last_name, setLastName] = useState("")
     const [password, setPassword] = useState("")
+    const [badLogin, setbadLogin] = useState(false)
     
     const navigate = useNavigate()
 
@@ -19,8 +20,10 @@ const LogIn = (props) => {
         fetch(`http://localhost:4000/api/login`, requestOptions)
             .then((res) => { 
                 if(res.ok) {
+                  setbadLogin(false)
                     return res.json() 
                 } else if(res.status === 404) {
+                    setbadLogin(true)
                     return Promise.reject('error 404')
                 } else {
                     return Promise.reject('some other error: ' + res.status)
@@ -41,7 +44,8 @@ const LogIn = (props) => {
     return (
     <div>
       <h3>Sign In</h3>
-      <form onSubmit={e=>handleSubmit(e)} className="row g-3">    
+      {badLogin ? <div className="row justify-content-center"><div class="alert alert-danger" role="alert" style={{"width": "400px"}}>Wrong Name or Password! Try Again.</div></div> : <></>}
+      <form onSubmit={e=>handleSubmit(e)} className="row g-3">  
           <div className="col-md-3"></div>  
           <div className="col-md-3">
             <label htmlFor="first_name" className="form-label">First Name</label>
@@ -80,7 +84,7 @@ const LogIn = (props) => {
           </div>
           <div className="col-md-3"></div>
           <div>
-            <button type="submit" >
+            <button className="btn btn-primary" type="submit" >
               Submit
             </button>
           </div>

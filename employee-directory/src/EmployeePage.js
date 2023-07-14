@@ -97,7 +97,7 @@ const EmployeePage = (props) => {
           <li className="list-group-item">Location: {employee.location}</li>
           <li className="list-group-item">Role: {toTitleCase(employee.job_role)}</li>
           <li className="list-group-item">Years of Experience: {employee.years_of_experience}</li>
-          {canViewSalary ? <li className="list-group-item">Salary: {employee.salary}</li> : <></>}
+          {canViewSalary ? <li className="list-group-item">Salary: ${employee.salary}</li> : <></>}
         </ul>
       </div>
     </div>

@@ -26,6 +26,7 @@ const SalaryPrediction = () => {
 
   return (
     <>
+    <h3>Salary Predictor</h3>
     <form className="row g-3 justify-content-center" onSubmit={e => sendData(e)}>
     <div className="col-md-4"></div>
     <div className="col-md-3">
