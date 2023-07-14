@@ -8,6 +8,7 @@ const port = 4000;
 
 app.use(express.json()); //Parse JSON body
 app.use(cors());
+app.use(express.static('./public'))
 
 app.get("/", (req, res) => {
     res.send("Hello There")
