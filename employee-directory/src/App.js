@@ -41,7 +41,7 @@ function App() {
       <Routes>
         <Route path="/" element={isLoggedIn ? <Home user={user}/> : <Navigate to="/login" replace />} />
         <Route path="/login" element={<LogIn setLogIn={setLogIn}/>} />
-        <Route path="/employees/:id" element={isLoggedIn ? <EmployeePage />: <Navigate to="/login" replace />} />
+        <Route path="/employees/:id" element={isLoggedIn ? <EmployeePage user={user}/>: <Navigate to="/login" replace />} />
         <Route path="/SalaryPrediction" element={isLoggedIn ? <SalaryPrediction user={user}/> : <Navigate to="/login" replace />} />
       </Routes>
     </div>

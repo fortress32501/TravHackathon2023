@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router';
 import Employee from './Employee';
 
-const EmployeePage = () => {
+const EmployeePage = (props) => {
   const [employee, setEmployee] = useState({})
   const [manager, setManager] = useState({})
   const [underlings, setUnderlings] = useState([])
+  const [canViewSalary, setCanViewSalary] = useState(false)
   let params = useParams();
 
   const getEmployee = ()  => {
@@ -61,13 +62,28 @@ const EmployeePage = () => {
     getEmployee()
   }, [params]);
 
+  useEffect(()=>{
+    if (employee.manager && employee.employee_id) {
+      if (props.user.job_role === "human_resources") {
+        setCanViewSalary(true)
+      } else if (props.user.job_role === "manager" && props.user.employee_id === employee.manager) {
+        setCanViewSalary(true)
+      } else if (props.user.employee_id === employee.employee_id){
+        setCanViewSalary(true)
+      } else {
+        setCanViewSalary(false)
+      }
+    }
+  }, [employee]);
+
   return (
     <>
-    <div>EmployeePage</div>
+    <div>Employee</div>
     <div>{employee.first_name} {employee.last_name}</div>
     <div>Phone: {employee.phone}</div>
     <div>Location: {employee.location}</div>
     <div>Role: {employee.job_role}</div>
+    {canViewSalary ? <div>Salary: {employee.salary}</div> : <></>}
     <div> Manager: {employee.manager!="NA" ? <Employee first_name={manager.first_name} last_name={manager.last_name} key={manager.employee_id} id={manager.employee_id} /> : <div>None</div>}</div>
     <div> Employees: {employee.job_role!="manager" ? <div>None</div> : underlings.map(underling => {return <Employee first_name={underling.first_name} last_name={underling.last_name} key={underling.employee_id} id={underling.employee_id} />})}</div>
     </>

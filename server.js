@@ -62,7 +62,6 @@ app.post("/api/login", (req, res) => {
 app.post("/predict", (req, res) => {
     const {location, job_role, years_of_experience} = req.body;
     let data_vals = [location, job_role, years_of_experience]
-    console.log(data_vals)
     // Spawn a child process to execute the predict.py script
     const pythonScript = spawn('python', ['predict.py']);
 
@@ -75,7 +74,6 @@ app.post("/predict", (req, res) => {
     // Collect the predicted data from stdout of the predict.py script
     pythonScript.stdout.on('data', (data) => {
         predictionData += data.toString();
-        console.log(predictionData)
     });
     
     // Handle the completion of the predict.py script

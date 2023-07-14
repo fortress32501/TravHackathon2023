@@ -8,6 +8,8 @@ const Home = (props) => {
   const [last_name, setLastName] = useState("")
   const [location, setLocation] = useState("")
   const [job, setJob] = useState("")
+  const [salaryComp, setSalaryComp] = useState("")
+  const [salary, setSalary] = useState(0)
 
   const navigate = useNavigate()
 
@@ -79,6 +81,19 @@ const Home = (props) => {
           <option value="software_engineer">Software Engineer</option>
       </select>
     </div>
+    {props.user.job_role==="human_resources" ? <div>
+      <select name="salaryComp" id="salaryComp" value = {salaryComp} onChange={(e)=>setSalaryComp(e.target.value)}> 
+          <option value="">-</option> 
+          <option value="gt">&gt;</option> 
+          <option value="lt">&lt;</option> 
+      </select>
+      <input
+        type="text"
+        placeholder="Enter salary"
+        value = {salary}
+        onChange={(e)=>setSalary(e.target.value)}
+      />
+    </div> : <></>}
     <div>{
       employees.filter(
         employee => 
@@ -86,6 +101,16 @@ const Home = (props) => {
         && employee.last_name.toLowerCase().includes(last_name.toLowerCase())
         && employee.location.toLowerCase().includes(location.toLowerCase())
         && employee.job_role.toLowerCase().includes(job.toLowerCase())
+      ).filter(
+        employee => {
+          if (salaryComp===""){
+            return true
+          } else if (salaryComp==="gt"){
+            return employee.salary > salary
+          } else {
+            return employee.salary < salary
+          }
+        }
       ).map(
         fil_emp => {return <Employee first_name={fil_emp.first_name} last_name={fil_emp.last_name} key={fil_emp.employee_id} id={fil_emp.employee_id} />}
       )}
